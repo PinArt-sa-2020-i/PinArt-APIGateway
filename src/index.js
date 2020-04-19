@@ -8,6 +8,7 @@ import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
 
 import { formatErr } from './utilities';
 import profileSchema from './profile/profileSchema';
+import configAccountSchema from './configAccount/configAccountSchema';
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -36,8 +37,17 @@ const profileql = graphqlKoa((ctx) => ({
 router.post('/profile', koaBody(), profileql);
 router.get('/profile', profileql);
 
+const configaccountql = graphqlKoa((ctx) => ({
+	schema: configAccountSchema,
+	context: { token: ctx.state.token },
+	formatError: formatErr
+}));
+router.post('/configaccount', koaBody(), configaccountql);
+router.get('/configaccount', configaccountql);
+
 // test route
 router.get('/profileql', graphiqlKoa({ endpointURL: '/profile' }));
+router.get('/configaccountql', graphiqlKoa({ endpointURL: '/configaccount' }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());

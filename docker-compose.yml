@@ -8,5 +8,8 @@ services:
       AUTH_URL: 'host.docker.internal'
       AUTH_PORT: '4000'
       AUTH_USERS_ENTRY: 'sa-auth-ms/resources/users'
+      CONFIG_ACCOUNT_URL: 'host.docker.internal'
+      CONFIG_ACCOUNT_PORT: '4005'
+      CONFIG_ACCOUNT_ENTRY: 'Configuracion/'
     ports:
       - '5000:5000'
